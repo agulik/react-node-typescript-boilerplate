@@ -1,0 +1,26 @@
+{
+  "name": "node-typescript-boilerplate",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run build:watch",
+    "build:watch": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "build": "tsc -p ."
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.16.0",
+    "@types/node": "^10.12.2",
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.18.5",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4"
+  }
+}
