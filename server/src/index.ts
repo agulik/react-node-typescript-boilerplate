@@ -21,7 +21,7 @@ export const pgClient = new Pool({
   database: keys.pgDatabase,
   password: keys.pgPassword,
   port: keys.pgPort
-})
+} as any)
 
 pgClient.on("error", () => console.log("Lost PG connection"))
 
