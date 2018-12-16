@@ -1,4 +1,5 @@
 {
-    "semi": false,
-    "trailingComma": "none"
+  "parser": "typescript",
+  "semi": false,
+  "trailingComma": "none"
 }
