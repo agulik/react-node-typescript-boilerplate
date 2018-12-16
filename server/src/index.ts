@@ -33,4 +33,4 @@ pgClient
 app.get("/", homeController.index)
 app.get("/users/all", usersController.allUsers)
 
-app.listen(8080, () => console.log("Server is listening on port 8080"))
+app.listen(4000, () => console.log("Server is listening on port 4000"))

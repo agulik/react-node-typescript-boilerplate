@@ -2,12 +2,17 @@ version: "3"
 services:
   postgres:
     image: "postgres:latest"
-  server:
+  nginx:
+    restart: always
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - "5000:80" # map 5000 on our local machine to the port inside the docker container
+  api:
     build:
       dockerfile: Dockerfile.dev
       context: ./server
-    ports:
-      - 8080:8080 # map 8080 on our local machine to the port inside the docker container
     volumes:
       - /app/node_modules
       - ./server:/app
@@ -17,3 +22,10 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
+  client:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+    - /app/node_modules
+    - ./client:/app
