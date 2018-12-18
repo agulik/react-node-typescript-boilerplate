@@ -1,11 +1,10 @@
 import express from "express"
 import bodyParser from "body-parser"
 import cors from "cors"
-import { Pool } from "pg"
+import morgan from "morgan"
 
-import keys from "../keys"
 import * as homeController from "./controllers/home"
-import * as usersController from "./controllers/users"
+import * as userController from "./controllers/user"
 
 const app = express()
 
@@ -13,24 +12,10 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-// Postgres configuration
-export const pgClient = new Pool({
-  user: keys.pgUser,
-  host: keys.pgHost,
-  database: keys.pgDatabase,
-  password: keys.pgPassword,
-  port: keys.pgPort
-} as any)
-
-pgClient.on("error", () => console.log("Lost PG connection"))
-
-pgClient
-  .query("CREATE TABLE IF NOT EXISTS users (id INT)")
-  .catch((error: string) => console.log(error))
+app.use(morgan("combined"))
 
 // Primary app routes
 app.get("/", homeController.index)
-app.get("/users/all", usersController.allUsers)
+app.get("/users/all", userController.fetchAllUsers)
 
 app.listen(4000, () => console.log("Server is listening on port 4000"))
