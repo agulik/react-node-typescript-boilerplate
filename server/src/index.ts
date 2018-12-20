@@ -1,7 +1,6 @@
 import express from "express"
 import bodyParser from "body-parser"
 import cors from "cors"
-import morgan from "morgan"
 
 import * as homeController from "./controllers/home"
 import * as userController from "./controllers/user"
@@ -12,7 +11,6 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(morgan("combined"))
 
 // Primary app routes
 app.get("/", homeController.index)
