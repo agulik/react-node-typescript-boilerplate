@@ -17,14 +17,20 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.get("/", homeController.index)
 app.get("/users/all", userController.fetchAllUsers)
 
-db.query("DROP TABLE IF EXISTS values").catch(err => console.log(err))
+const initializeDb = async () => {
+  await db.query("DROP TABLE IF EXISTS users").catch(err => console.log(err))
 
-db.query(
-  "CREATE TABLE IF NOT EXISTS users (id INT, FirstName varChar(255), LastName varchar(255), Email varchar(255))"
-).catch(err => console.log(err))
-db.query(
-  "INSERT INTO users(id, FirstName, LastName, Email) VALUES($1, $2, $3, $4)",
-  [1, "Andrew", "Test", "andrew@test.com"]
-)
+  await db
+    .query(
+      "CREATE TABLE IF NOT EXISTS users(id SERIAL, FirstName varChar(255), LastName varchar(255), Email varchar(255), PRIMARY KEY (id))"
+    )
+    .catch(err => console.log(err))
+  await db.query(
+    "INSERT INTO users(id, FirstName, LastName, Email) VALUES($1, $2, $3, $4)",
+    [1, "Andrew", "Test", "andrew@test.com"]
+  )
+}
+
+initializeDb()
 
 app.listen(4000, () => console.log("Server is listening on port 4000"))
