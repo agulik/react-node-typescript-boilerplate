@@ -3,12 +3,14 @@ import React, { Component } from "react"
 import "./App.css"
 import Home from "./containers/home"
 
-const App = () => {
-  return (
-    <div className="App">
-      <Home />
-    </div>
-  )
+class App extends Component {
+  render() {
+    return (
+      <main>
+        <Home />
+      </main>
+    )
+  }
 }
 
 export default App
